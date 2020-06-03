@@ -12,7 +12,7 @@ class TodoInput extends Component {
             <input
               type="text"
               className="form-control text-capitalize"
-              placeholder="add todo item"
+              placeholder="add todo item..."
               value={item}
               onChange={handleChange}
             />

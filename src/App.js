@@ -7,34 +7,53 @@ import { v4 as uuidv4 } from "uuid";
 
 class App extends React.Component {
   state = {
-    items: [
-      { id: 1, title: "wake up" },
-      { id: 2, title: "make something" },
-    ],
+    items: [],
     id: uuidv4(),
     item: "",
     editItem: false,
   };
 
   handleChange = (e) => {
-    console.log("handleChange");
+    this.setState({
+      item: e.target.value,
+    });
   };
 
   handleSubmit = (e) => {
-    console.log("handleSubmit");
-  };
-
-  clearList = () => {
-    console.log("clearList");
+    e.preventDefault();
+    const newItem = {
+      id: this.state.id,
+      title: this.state.item,
+    };
+    const updatedItems = [...this.state.items, newItem];
+    this.setState({
+      items: updatedItems,
+      item: "",
+      id: uuidv4(),
+      editItem: false,
+    });
   };
 
   handleDelete = (id) => {
-    console.log(`edit edit ${id}`);
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    this.setState({
+      items: filteredItems,
+    });
+  };
+
+  handleEdit = (id) => {
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    const selectedItem = this.state.items.find((item) => item.id === id);
+    console.log(selectedItem);
+  };
+
+  clearList = () => {
+    this.setState({
+      items: [],
+    });
   };
 
   render() {
-    console.log(this.state);
-
     return (
       <div className="container">
         <div className="row">
